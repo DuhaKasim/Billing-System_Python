@@ -1,0 +1,117 @@
+input(str("Please enter your name:")) 
+print("----------------------------------------------")
+
+print("Hello" + name + "welcome to our Bookstore!")
+
+print("Here are the books we have in store today:\n")
+products = ['It Starts with us' , 'It Ends with us' , 'Harry Potter and the\n Chamber of Secrets' , 'Harry Potter and the\n Prisoners of Azkiban' , 'Harry Potter and the\n Deathly Hallows']
+price = [5.00 , 6.78 , 6.00 , 4.58 , 7.45]
+
+print('Item' , 'Price' , sep = '\t\t\t\t')
+for kk in range(len(products)): # kk is grouping similar items together
+    print (str(kk + 1) + '.' + products[kk] , price[kk] , sep = '\t\t') # Displaying shopping cart
+
+print("----------------------------------------------")
+
+shopping_complete = 0
+
+shopping_cart = []
+shopping_q = [] # Shopping quatity both are equal to an empty list
+
+while shopping_complete != 1:
+    order = int(input('Enter 1 to 5 to purchase a book, and 6 to proceed to checkout!\n'))
+
+    if order <= 5:
+        print('User is shopping!')
+        print('You selected', products[order-1])
+        quantity = int(input('How many units do you wish to purchase?\n'))
+        print('New selection')
+        print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+        shopping_cart.append(products[order-1])
+        shopping_q.append(quantity)
+
+    elif order == 6:
+        print('Proceeding to checkout.......')
+        shopping_complete = 1
+        print('Shopping is complete displaying shopping cart:\n') # meets criteria of viewing the basket and checout
+        print('Item' , 'Price' , 'Quantity' , sep = '\t\t\t\t\t')
+
+userI = input('If you would like to remove and item type the letter r: ') # Removing items
+if userI == 'r': #or capital R
+    def remove():
+        repeat=True
+        while repeat:
+            a=0
+            print('\nBasket')
+            for x in shopping_cart:
+                a=a+1
+                quantity=str(x[0])
+                product=str(x[1])
+                totPrice=(x[2])
+                print (str(a)+')',product,'x',quantity,'\t\t','=  £'+('%.2fp'%totPrice))
+
+                removeProduct= input('\nWhat would you like to remove from your basket?\n>>>') # can be the number or name
+                removeQuantity=int(input('\nHow many would you like to remove?\n>>>'))
+                for x in shopping_cart:
+                    if removeProduct == x[1]:
+                        if removeQuantity >= x[0]:
+                            shopping_cart.remove(x)
+                        else:
+                            x[2]=(x[2])-((x[2]/x[0])*removeQuantity)
+                            x[0]=x[0]-removeQuantity
+                print (str('\nVoid *'),removeProduct,'x',removeQuantity)
+                a=0
+                for x in shopping_cart:
+                    a=a+1
+                    quantity=str(x[0])
+                    product=str(x[1])
+                    totPrice=(x[2])
+                    print (str(a)+')',product,'x',quantity,'\t\t','=  £'+('%.2fp'%totPrice))
+                repInput = input('\nWould you like to remove anything else?')
+                if repInput != ('y'):
+                    repeat=False
+                        
+                else:
+                    print('Continue to checkout')
+            break
+                    
+
+
+    def discount(word, grand_tot): # Applying 20% discount
+            user_code = input("Enter your code: ")
+            if user_code == word:
+                type = 20
+                discount = grand_tot * type /1
+                discounted_price = grand_tot - discount
+                print("Discounted price:","£",discounted_price)
+            else:
+                print("Code invalid!")
+
+
+    grand_tot = 0.0
+    word = "off20"
+    discount(word, grand_tot) #return find
+
+
+    for kk in range(len(shopping_cart)): # Calculating and displaying grand total after discount
+        idx = products.index(shopping_cart[kk])
+        unit_price = price[idx]
+        total = shopping_q[kk] * price[idx] 
+        print(shopping_cart[kk] , price[kk] ,  shopping_q[kk] , total , sep = '\t\t\t') 
+        grand_tot = grand_tot + total
+        print('Your Grand total is ' , grand_tot) # round 2f
+        print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+    
+
+
+        from datetime import datetime # Displays current date and time above the invoice
+        current_dateTime = datetime.now()
+        print(current_dateTime)
+                
+        print('Invoice for ' , name) # Invoice
+        print('Item' , 'Price' , 'Quantity' , 'Total' , sep = '\t\t\t\t\t')
+        print(shopping_cart[kk] , price[kk] ,  shopping_q[kk] , total , sep = '\t\t\t')
+        print('Thank you for shopping at our bookstore, goodbye!')
+        print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+    
+       
